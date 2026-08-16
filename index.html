@@ -4,185 +4,776 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UPI Payment</title>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f3f3f3;color:#222}
-.title{background:#ff8500;color:#fff;text-align:center;font-size:34px;font-weight:bold;padding:15px}
-.container{max-width:500px;margin:auto;padding:15px}
-.amount{text-align:center}.price{color:#ff8500;font-size:46px;font-weight:bold;margin:10px 0}
-.timer{color:red;font-size:28px;margin:8px 0}
-.qr{text-align:center;margin:12px 0}.qr img{width:180px;height:180px;object-fit:contain;background:#fff}
-.pay-box{background:#fff;border:1px solid #ddd;border-radius:15px;padding:12px;margin-top:12px;display:flex;justify-content:space-between;align-items:center}
-.pay-left{display:flex;align-items:center;gap:12px}.pay-left img{width:52px;height:52px;object-fit:contain}
-.pay-name{font-size:21px;font-weight:bold}
-.pay-btn{background:#ff8500;color:#fff;border:0;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:16px}
-.manual{background:#fff;margin-top:15px;padding:15px;border-radius:15px}
-.label{color:#4f7fe8;font-weight:bold;font-size:14px;margin-bottom:8px}
-.upi-box{display:flex}.upi-box input{flex:1;padding:10px;font-size:15px;border:1px solid #ccc;border-radius:6px 0 0 6px}
-.copy-btn{background:#ff8500;color:#fff;border:0;padding:0 15px;border-radius:0 6px 6px 0;cursor:pointer}
-.info{font-size:12px;color:#777;margin-top:12px;line-height:1.5}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f3f3f3;
+  color:#222;
+}
+
+.title{
+  background:#ff8500;
+  color:#fff;
+  text-align:center;
+  font-size:34px;
+  font-weight:bold;
+  padding:15px;
+}
+
+.container{
+  max-width:500px;
+  margin:auto;
+  padding:15px;
+}
+
+.amount{
+  text-align:center;
+}
+
+.price{
+  color:#ff8500;
+  font-size:46px;
+  font-weight:bold;
+  margin:10px 0;
+}
+
+.timer{
+  color:red;
+  font-size:28px;
+  margin:8px 0;
+}
+
+.qr{
+  text-align:center;
+  margin:12px 0;
+}
+
+.qr img{
+  width:180px;
+  height:180px;
+  object-fit:contain;
+  background:#fff;
+}
+
+.pay-box{
+  background:#fff;
+  border:1px solid #ddd;
+  border-radius:15px;
+  padding:12px;
+  margin-top:12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.pay-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.pay-left img{
+  width:52px;
+  height:52px;
+  object-fit:contain;
+}
+
+.pay-name{
+  font-size:21px;
+  font-weight:bold;
+}
+
+.pay-btn{
+  background:#ff8500;
+  color:#fff;
+  border:0;
+  padding:10px 20px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:16px;
+}
+
+.manual{
+  background:#fff;
+  margin-top:15px;
+  padding:15px;
+  border-radius:15px;
+}
+
+.label{
+  color:#4f7fe8;
+  font-weight:bold;
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.upi-box{
+  display:flex;
+}
+
+.upi-box input{
+  flex:1;
+  padding:10px;
+  font-size:15px;
+  border:1px solid #ccc;
+  border-radius:6px 0 0 6px;
+}
+
+.copy-btn{
+  background:#ff8500;
+  color:#fff;
+  border:0;
+  padding:0 15px;
+  border-radius:0 6px 6px 0;
+  cursor:pointer;
+}
+
+.tip{
+  color:#ff8500;
+  margin:10px 0;
+  font-size:13px;
+}
+
+.ref-input{
+  width:100%;
+  padding:12px;
+  font-size:16px;
+  border:1px solid #ccc;
+  border-radius:6px;
+  margin-top:8px;
+  margin-bottom:10px;
+}
+
+.submit-btn{
+  width:100%;
+  background:#ff8500;
+  color:#fff;
+  border:0;
+  padding:12px;
+  font-size:18px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.submit-btn:disabled{
+  background:#999;
+  cursor:not-allowed;
+}
+
+.demo-note{
+  background:#fff;
+  margin-top:15px;
+  padding:15px;
+  border-radius:15px;
+  font-size:13px;
+  color:#555;
+  line-height:1.5;
+}
+
+/* Demo result */
+#successBox{
+  display:none;
+  padding:20px 15px;
+}
+
+.success-card{
+  background:#fff;
+  max-width:500px;
+  margin:auto;
+  padding:30px 15px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 0 15px rgba(0,0,0,.08);
+}
+
+.success-card h1{
+  color:#ff8500;
+  font-size:30px;
+  margin-bottom:15px;
+}
+
+.success-card p{
+  font-size:18px;
+  line-height:1.5;
+}
+
+.ref-show{
+  margin-top:15px;
+  font-weight:bold;
+  word-break:break-all;
+}
 </style>
 </head>
+
 <body>
 
 <div class="title">Payment</div>
 
-<div class="container">
-  <div class="amount">
-    <div class="price" id="price">₹0.00</div>
-    <div class="timer" id="timer">08:00</div>
-    <div style="font-size:14px">Scan QR to pay</div>
-  </div>
+<!-- PAYMENT PAGE -->
+<div id="paymentPage">
 
-  <div class="qr">
-    <img id="qrCode" alt="UPI QR Code">
-  </div>
+  <div class="container">
 
-  <h3 style="font-size:16px">Choose payment method</h3>
+    <div class="amount">
 
-  <div class="pay-box">
-    <div class="pay-left">
-      <img src="https://pwebassets.paytm.com/commonwebassets/paytmweb/header/images/logo_new.svg" alt="Paytm">
-      <div class="pay-name">Paytm</div>
+      <div class="price" id="price">
+        ₹0.00
+      </div>
+
+      <div class="timer" id="timer">
+        08:00
+      </div>
+
+      <div style="font-size:14px">
+        Scan QR to pay
+      </div>
+
     </div>
-    <button class="pay-btn" id="paytmBtn">Pay</button>
+
+
+    <!-- QR -->
+    <div class="qr">
+      <img id="qrCode" alt="UPI QR Code">
+    </div>
+
+
+    <h3 style="font-size:16px">
+      Choose payment method
+    </h3>
+
+
+    <!-- PAYTM -->
+    <div class="pay-box">
+
+      <div class="pay-left">
+
+        <img
+          src="https://pwebassets.paytm.com/commonwebassets/paytmweb/header/images/logo_new.svg"
+          alt="Paytm">
+
+        <div class="pay-name">
+          Paytm
+        </div>
+
+      </div>
+
+      <button
+        class="pay-btn"
+        id="paytmBtn">
+        Pay
+      </button>
+
+    </div>
+
+
+    <!-- PHONEPE -->
+    <div class="pay-box">
+
+      <div class="pay-left">
+
+        <img
+          src="https://download.logo.wine/logo/PhonePe/PhonePe-Logo.wine.png"
+          alt="PhonePe">
+
+        <div class="pay-name">
+          PhonePe
+        </div>
+
+      </div>
+
+      <button
+        class="pay-btn"
+        id="phonepeBtn">
+        Pay
+      </button>
+
+    </div>
+
+
+    <!-- MANUAL PAYMENT -->
+    <div class="manual">
+
+      <div class="label">
+        1. Copy the below given UPI
+      </div>
+
+      <div class="upi-box">
+
+        <input
+          id="upi"
+          type="text"
+          readonly>
+
+        <button
+          class="copy-btn"
+          id="copyBtn">
+          Copy
+        </button>
+
+      </div>
+
+
+      <div class="tip">
+        Tip: Pay Fast
+      </div>
+
+
+      <!-- UTR -->
+      <div class="label">
+        2.Need to enter your 12 Ref No (UTR
+      </div>
+
+      <input
+        class="ref-input"
+        id="utr"
+        maxlength="12"
+        inputmode="numeric"
+        placeholder="Enter 12 Digit reference">
+
+
+      <button
+        class="submit-btn"
+        id="submitBtn"
+        disabled>
+        SUBMIT
+      </button>
+
+    </div>
+
+
+    <div class="demo-note">
+      Please select the payment method you need and make sure your :
+
+    </div>
+
   </div>
 
-  <div class="pay-box">
-    <div class="pay-left">
-      <img src="https://download.logo.wine/logo/PhonePe/PhonePe-Logo.wine.png" alt="PhonePe">
-      <div class="pay-name">PhonePe</div>
-    </div>
-    <button class="pay-btn" id="phonepeBtn">Pay</button>
-  </div>
-
-  <div class="manual">
-    <div class="label">UPI ID</div>
-    <div class="upi-box">
-      <input id="upi" type="text" readonly>
-      <button class="copy-btn" id="copyBtn">Copy</button>
-    </div>
-    <div class="info">
-      Amount and UPI ID are read from the URL. Payment approval happens inside the UPI app/bank.
-    </div>
-  </div>
 </div>
 
+
+<!-- DEMO RESULT -->
+<div id="successBox">
+
+  <div class="success-card">
+
+    <h1>
+      Payment Successful ✓
+    </h1>
+
+    <p>
+      Your payment is under verification please wait...
+    </p>
+
+    <div
+      class="ref-show"
+      id="refShow">
+    </div>
+
+    <p style="font-size:13px;margin-top:15px;color:#777;">
+      Payment status is verified by Tivo.
+    </p>
+
+  </div>
+
+</div>
+
+
 <script>
+
+/* =========================
+   GLOBAL VARIABLES
+========================= */
+
 let globalAmount = "0.00";
 let globalUPI = "";
 
+
+/* =========================
+   LOAD AMOUNT + UPI FROM URL
+========================= */
+
 function loadFromURL(){
-  const params = new URLSearchParams(window.location.search);
 
-  const amountParam = params.get("amount");
-  const upiParam = params.get("upi");
+  const params =
+    new URLSearchParams(window.location.search);
 
-  if(amountParam !== null && amountParam.trim() !== ""){
-    const cleaned = amountParam.replace(/[^0-9.]/g, "");
-    const number = Number(cleaned);
+  const amountParam =
+    params.get("amount");
 
-    if(Number.isFinite(number) && number >= 0){
-      globalAmount = number.toFixed(2);
+  const upiParam =
+    params.get("upi");
+
+
+  /* AMOUNT */
+
+  if(
+    amountParam !== null &&
+    amountParam.trim() !== ""
+  ){
+
+    const cleaned =
+      amountParam.replace(/[^0-9.]/g,"");
+
+    const number =
+      Number(cleaned);
+
+    if(
+      Number.isFinite(number) &&
+      number >= 0
+    ){
+
+      globalAmount =
+        number.toFixed(2);
+
     }
+
   }
 
-  if(upiParam !== null && upiParam.trim() !== ""){
-    globalUPI = upiParam.trim();
+
+  /* UPI */
+
+  if(
+    upiParam !== null &&
+    upiParam.trim() !== ""
+  ){
+
+    globalUPI =
+      upiParam.trim();
+
   }
 
-  document.getElementById("price").textContent = "₹" + globalAmount;
-  document.getElementById("upi").value = globalUPI;
+
+  /* SHOW DATA */
+
+  document.getElementById("price")
+    .textContent =
+    "₹" + globalAmount;
+
+  document.getElementById("upi")
+    .value =
+    globalUPI;
+
+
+  /* UPDATE QR */
 
   updateQR();
+
 }
+
+
+/* =========================
+   CREATE UPI LINK
+========================= */
 
 function createUPILink(){
+
   return "upi://pay" +
-    "?pa=" + encodeURIComponent(globalUPI) +
-    "&pn=" + encodeURIComponent("Payment") +
-    "&am=" + encodeURIComponent(globalAmount) +
+
+    "?pa=" +
+    encodeURIComponent(globalUPI) +
+
+    "&pn=" +
+    encodeURIComponent("Payment") +
+
+    "&am=" +
+    encodeURIComponent(globalAmount) +
+
     "&cu=INR";
+
 }
 
+
+/* =========================
+   UPDATE QR
+========================= */
+
 function updateQR(){
-  const qr = document.getElementById("qrCode");
+
+  const qr =
+    document.getElementById("qrCode");
+
 
   if(!globalUPI){
+
     qr.removeAttribute("src");
+
     return;
+
   }
+
+
+  const upiLink =
+    createUPILink();
+
 
   qr.src =
     "https://api.qrserver.com/v1/create-qr-code/" +
+
     "?size=250x250&data=" +
-    encodeURIComponent(createUPILink());
+
+    encodeURIComponent(upiLink);
+
 }
+
+
+/* =========================
+   OPEN UPI APP
+========================= */
 
 function openUPI(app){
+
   if(!globalUPI){
-    alert("UPI ID is missing. Add ?upi=YOUR_UPI_ID to the URL.");
+
+    alert(
+      "UPI ID is missing. Add ?upi=YOUR_UPI_ID to the URL."
+    );
+
     return;
+
   }
+
 
   const data =
-    "?pa=" + encodeURIComponent(globalUPI) +
-    "&pn=" + encodeURIComponent("Payment") +
-    "&am=" + encodeURIComponent(globalAmount) +
+
+    "?pa=" +
+    encodeURIComponent(globalUPI) +
+
+    "&pn=" +
+    encodeURIComponent("Payment") +
+
+    "&am=" +
+    encodeURIComponent(globalAmount) +
+
     "&cu=INR";
 
+
   if(app === "paytm"){
-    window.location.href = "paytmmp://pay" + data;
-  }else{
-    window.location.href = "phonepe://pay" + data;
+
+    window.location.href =
+      "paytmmp://pay" + data;
+
   }
+
+  else if(app === "phonepe"){
+
+    window.location.href =
+      "phonepe://pay" + data;
+
+  }
+
 }
 
-document.getElementById("paytmBtn").addEventListener("click", function(){
-  openUPI("paytm");
-});
 
-document.getElementById("phonepeBtn").addEventListener("click", function(){
-  openUPI("phonepe");
-});
+/* =========================
+   PAYTM BUTTON
+========================= */
 
-document.getElementById("copyBtn").addEventListener("click", async function(){
-  if(!globalUPI){
-    alert("UPI ID is missing.");
-    return;
+document
+  .getElementById("paytmBtn")
+  .addEventListener("click",function(){
+
+    openUPI("paytm");
+
+  });
+
+
+/* =========================
+   PHONEPE BUTTON
+========================= */
+
+document
+  .getElementById("phonepeBtn")
+  .addEventListener("click",function(){
+
+    openUPI("phonepe");
+
+  });
+
+
+/* =========================
+   COPY UPI
+========================= */
+
+document
+  .getElementById("copyBtn")
+  .addEventListener("click",async function(){
+
+    if(!globalUPI){
+
+      alert("UPI ID is missing.");
+
+      return;
+
+    }
+
+
+    try{
+
+      await navigator.clipboard
+        .writeText(globalUPI);
+
+      alert("UPI ID copied.");
+
+    }
+
+    catch(e){
+
+      const input =
+        document.getElementById("upi");
+
+      input.removeAttribute("readonly");
+
+      input.select();
+
+      document.execCommand("copy");
+
+      input.setAttribute("readonly","");
+
+      alert("UPI ID copied.");
+
+    }
+
+  });
+
+
+/* =========================
+   UTR VALIDATION
+========================= */
+
+const utrInput =
+  document.getElementById("utr");
+
+const submitBtn =
+  document.getElementById("submitBtn");
+
+
+utrInput.addEventListener(
+  "input",
+  function(){
+
+    /* ONLY NUMBERS */
+
+    this.value =
+      this.value
+        .replace(/\D/g,"")
+        .slice(0,12);
+
+
+    /* ENABLE AFTER 12 DIGITS */
+
+    submitBtn.disabled =
+      this.value.length !== 12;
+
   }
+);
 
-  try{
-    await navigator.clipboard.writeText(globalUPI);
-    alert("UPI ID copied.");
-  }catch(e){
-    const input = document.getElementById("upi");
-    input.removeAttribute("readonly");
-    input.select();
-    document.execCommand("copy");
-    input.setAttribute("readonly","");
-    alert("UPI ID copied.");
+
+/* =========================
+   DEMO SUBMIT
+========================= */
+
+submitBtn.addEventListener(
+  "click",
+  function(){
+
+    const utr =
+      utrInput.value;
+
+
+    if(!/^\d{12}$/.test(utr)){
+
+      alert(
+        "Enter valid 12 digit reference number."
+      );
+
+      return;
+
+    }
+
+
+    /* SHOW REFERENCE */
+
+    document.getElementById("refShow")
+      .textContent =
+      "Reference: " + utr;
+
+
+    /* HIDE PAYMENT PAGE */
+
+    document.getElementById("paymentPage")
+      .style.display =
+      "none";
+
+
+    /* SHOW DEMO RESULT */
+
+    document.getElementById("successBox")
+      .style.display =
+      "block";
+
   }
-});
+);
+
+
+/* =========================
+   TIMER
+========================= */
 
 let seconds = 480;
 
-function updateTimer(){
-  const minutes = String(Math.floor(seconds / 60)).padStart(2,"0");
-  const secs = String(seconds % 60).padStart(2,"0");
 
-  document.getElementById("timer").textContent =
+function updateTimer(){
+
+  const minutes =
+    String(
+      Math.floor(seconds / 60)
+    ).padStart(2,"0");
+
+
+  const secs =
+    String(
+      seconds % 60
+    ).padStart(2,"0");
+
+
+  document.getElementById("timer")
+    .textContent =
     minutes + ":" + secs;
 
+
   if(seconds > 0){
+
     seconds--;
+
   }
+
 }
 
-updateTimer();
-setInterval(updateTimer,1000);
 
-window.addEventListener("DOMContentLoaded", loadFromURL);
+updateTimer();
+
+setInterval(
+  updateTimer,
+  1000
+);
+
+
+/* =========================
+   PAGE LOAD
+========================= */
+
+window.addEventListener(
+  "DOMContentLoaded",
+  loadFromURL
+);
+
 </script>
 
 </body>
