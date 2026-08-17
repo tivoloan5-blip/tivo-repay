@@ -528,46 +528,18 @@ function updateQR(){
 ========================= */
 
 function openUPI(app){
-
   if(!globalUPI){
-
-    alert(
-      "UPI ID is missing. Add ?upi=YOUR_UPI_ID to the URL."
-    );
-
+    alert("UPI ID is missing. Add ?upi=YOUR_UPI_ID to the URL.");
     return;
-
   }
-
 
   const data =
-
-    "?pa=" +
-    encodeURIComponent(globalUPI) +
-
-    "&pn=" +
-    encodeURIComponent("Payment") +
-
-    "&am=" +
-    encodeURIComponent(globalAmount) +
-
+    "?pa=" + encodeURIComponent(globalUPI) +
+    "&pn=" + encodeURIComponent("Payment") +
+    "&am=" + encodeURIComponent(globalAmount) +
     "&cu=INR";
 
-
-  if(app === "paytm"){
-
-    window.location.href =
-      "paytmmp://pay" + data;
-
-  }
-
-  else if(app === "phonepe"){
-
-    window.location.href =
-      "phonepe://pay" + data;
-
-  }
-
+  window.location.href = "upi://pay" + data;
 }
 
 
