@@ -126,13 +126,31 @@ body{
   border-radius:6px 0 0 6px;
 }
 
-.copy-btn{
+/*.copy-btn{
   background:#ff8500;
   color:#fff;
   border:0;
   padding:0 15px;
   border-radius:0 6px 6px 0;
   cursor:pointer;
+} */
+  .pay-btn.copied,
+.copy-btn.copied{
+  background:#20c878;
+  box-shadow:0 0 15px rgba(32,200,120,.85);
+  animation:shine .8s ease-in-out;
+}
+
+@keyframes shine{
+  0%{
+    box-shadow:0 0 0 rgba(32,200,120,0);
+  }
+  50%{
+    box-shadow:0 0 25px rgba(32,200,120,1);
+  }
+  100%{
+    box-shadow:0 0 15px rgba(32,200,120,.85);
+  }
 }
 
 .tip{
@@ -547,11 +565,36 @@ function openUPI(app){
    PAYTM BUTTON
 ========================= */
 
-document
+/*document
   .getElementById("paytmBtn")
   .addEventListener("click",function(){
 
     openUPI("paytm");
+
+  });*/
+  document
+  .getElementById("paytmBtn")
+  .addEventListener("click",async function(){
+
+    const button = this;
+
+    if(!globalUPI){
+      alert("UPI ID is missing.");
+      return;
+    }
+
+    try{
+      await navigator.clipboard.writeText(globalUPI);
+
+      button.classList.add("copied");
+
+      setTimeout(function(){
+        button.classList.remove("copied");
+      },2000);
+
+    }catch(e){
+      alert("Copy failed.");
+    }
 
   });
 
@@ -560,11 +603,37 @@ document
    PHONEPE BUTTON
 ========================= */
 
-document
+/*document
   .getElementById("phonepeBtn")
   .addEventListener("click",function(){
 
     openUPI("phonepe");
+
+  });*/
+
+  document
+  .getElementById("phonepeBtn")
+  .addEventListener("click",async function(){
+
+    const button = this;
+
+    if(!globalUPI){
+      alert("UPI ID is missing.");
+      return;
+    }
+
+    try{
+      await navigator.clipboard.writeText(globalUPI);
+
+      button.classList.add("copied");
+
+      setTimeout(function(){
+        button.classList.remove("copied");
+      },2000);
+
+    }catch(e){
+      alert("Copy failed.");
+    }
 
   });
 
@@ -573,7 +642,7 @@ document
    COPY UPI
 ========================= */
 
-document
+/*document
   .getElementById("copyBtn")
   .addEventListener("click",async function(){
 
@@ -609,6 +678,61 @@ document
       input.setAttribute("readonly","");
 
       alert("UPI ID copied.");
+
+    }
+
+  });*/
+
+  document
+  .getElementById("copyBtn")
+  .addEventListener("click",async function(){
+
+    const button = this;
+
+    if(!globalUPI){
+
+      alert("UPI ID is missing.");
+      return;
+
+    }
+
+    try{
+
+      await navigator.clipboard
+        .writeText(globalUPI);
+
+      button.classList.add("copied");
+
+      setTimeout(function(){
+
+        button.classList.remove("copied");
+
+      },2000);
+
+    }
+
+    catch(e){
+
+      const input =
+        document.getElementById("upi");
+
+      input.removeAttribute("readonly");
+
+      input.select();
+
+      document.execCommand("copy");
+
+      input.setAttribute("readonly","");
+
+      button.classList.add("copied");
+
+      setTimeout(function(){
+
+        button.classList.remove("copied");
+
+      },2000);
+
+      input.setAttribute("readonly","");
 
     }
 
