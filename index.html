@@ -446,12 +446,16 @@ body{
 
 <script>
 
-/* =========================
+/* =========================                              /* =========================irshad1========================= */
    GLOBAL VARIABLES
 ========================= */
 
 let globalAmount = "0.00";
 let globalUPI = "";
+
+  // Copy button ke liye fixed UPI
+                                                    
+// const copyUPI = "irshad@123";
 
 
 /* =========================
@@ -542,7 +546,7 @@ function createUPILink(){
     encodeURIComponent(globalUPI) +
 
     "&pn=" +
-    encodeURIComponent("Payment") +
+    encodeURIComponent("Payment") +    ////////////////////////////////////////////////irshad UPI///////////////////////////////////////////////////////////
 
     "&am=" +
     encodeURIComponent(globalAmount) +
@@ -550,6 +554,15 @@ function createUPILink(){
     "&cu=INR";
 
 }
+  //   function createUPILink(){
+
+//   return "upi://pay" +
+//     "?pa=" + encodeURIComponent(copyUPI) +
+//     "&pn=" + encodeURIComponent("Payment") +
+//     "&am=" + encodeURIComponent(globalAmount) +
+//     "&cu=INR";
+
+// }
 
 
 /* =========================
@@ -732,7 +745,7 @@ function openUPI(app){
     const button = this;
 
     if(!globalUPI){
-      alert("UPI ID is missing.");
+      alert("UPI ID is missing.");    ///////////////////////////////////////////////////irshad UPI///////////////////////////////////////////////////////////////
       return;
     }
 
@@ -740,6 +753,22 @@ function openUPI(app){
 
       await navigator.clipboard
         .writeText(globalUPI);
+
+      // document
+  // .getElementById("copyBtn")
+  // .addEventListener("click",async function(){
+
+  //   const button = this;
+
+  //   if(!copyUPI){
+  //     alert("UPI ID is missing.");
+  //     return;
+  //   }
+
+  //   try{
+
+  //     await navigator.clipboard
+  //       .writeText(copyUPI);
 
       button.classList.add("copied");
       button.textContent = "Copied ✓";
